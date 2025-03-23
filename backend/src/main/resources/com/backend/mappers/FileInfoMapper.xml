@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.backend.mappers.FileInfoMapper">
 
 	<!--实体映射-->
 	<resultMap id="base_result_map" type="com.backend.entity.po.FileInfo">
 		<!--文件ID-->
-		<id column="file_id" property="fileId"  />
+		<result column="file_id" property="fileId"  />
 		<!--用户ID-->
 		<result column="user_id" property="userId"  />
 		<!--文件md5值-->
@@ -42,583 +42,603 @@
 
 	<!-- 通用查询结果列-->
 	<sql id="base_column_list">
-		 f.file_id,f.user_id,f.file_md5,f.file_pid,f.file_size,
+		f.file_id,f.user_id,f.file_md5,f.file_pid,f.file_size,
 		 f.file_name,f.file_cover,f.file_path,f.create_time,f.last_update_time,
 		 f.folder_type,f.file_category,f.file_type,f.status,f.del_flag,
 		 f.recovery_time
 	</sql>
 
 	<sql id="base_condition_filed">
-			<if test="query.fileId != null">
-				 and  f.file_id = #{query.fileId}
-			</if>
-			<if test="query.userId != null">
-				 and  f.user_id = #{query.userId}
-			</if>
-			<if test="query.fileMd5 != null and query.fileMd5!=''">
-				 and  f.file_md5 = #{query.fileMd5}
-			</if>
-			<if test="query.filePid != null">
-				 and  f.file_pid = #{query.filePid}
-			</if>
-			<if test="query.fileSize != null">
-				 and  f.file_size = #{query.fileSize}
-			</if>
-			<if test="query.fileName != null and query.fileName!=''">
-				 and  f.file_name = #{query.fileName}
-			</if>
-			<if test="query.fileCover != null and query.fileCover!=''">
-				 and  f.file_cover = #{query.fileCover}
-			</if>
-			<if test="query.filePath != null and query.filePath!=''">
-				 and  f.file_path = #{query.filePath}
-			</if>
-			<if test="query.createTime != null and query.createTime!=''">
-				 <![CDATA[ and  f.create_time=str_to_date(#{query.createTime}, '%Y-%m-%d') ]]>
-			</if>
-			<if test="query.lastUpdateTime != null and query.lastUpdateTime!=''">
-				 <![CDATA[ and  f.last_update_time=str_to_date(#{query.lastUpdateTime}, '%Y-%m-%d') ]]>
-			</if>
-			<if test="query.folderType != null">
-				 and  f.folder_type = #{query.folderType}
-			</if>
-			<if test="query.fileCategory != null">
-				 and  f.file_category = #{query.fileCategory}
-			</if>
-			<if test="query.fileType != null">
-				 and  f.file_type = #{query.fileType}
-			</if>
-			<if test="query.status != null">
-				 and  f.status = #{query.status}
-			</if>
-			<if test="query.delFlag != null">
-				 and  f.del_flag = #{query.delFlag}
-			</if>
-			<if test="query.recoveryTime != null and query.recoveryTime!=''">
-				 <![CDATA[ and  f.recovery_time=str_to_date(#{query.recoveryTime}, '%Y-%m-%d') ]]>
-			</if>
+		<if test="query.fileId != null and query.fileId!=''">
+			and  f.file_id = #{query.fileId}
+		</if>
+		<if test="query.userId != null">
+			and  f.user_id = #{query.userId}
+		</if>
+		<if test="query.fileMd5 != null and query.fileMd5!=''">
+			and  f.file_md5 = #{query.fileMd5}
+		</if>
+		<if test="query.filePid != null and query.filePid!=''">
+			and  f.file_pid = #{query.filePid}
+		</if>
+		<if test="query.fileSize != null">
+			and  f.file_size = #{query.fileSize}
+		</if>
+		<if test="query.fileName != null and query.fileName!=''">
+			and  f.file_name = #{query.fileName}
+		</if>
+		<if test="query.fileCover != null and query.fileCover!=''">
+			and  f.file_cover = #{query.fileCover}
+		</if>
+		<if test="query.filePath != null and query.filePath!=''">
+			and  f.file_path = #{query.filePath}
+		</if>
+		<if test="query.createTime != null and query.createTime!=''">
+			<![CDATA[ and  f.create_time=str_to_date(#{query.createTime}, '%Y-%m-%d') ]]>
+		</if>
+		<if test="query.lastUpdateTime != null and query.lastUpdateTime!=''">
+			<![CDATA[ and  f.last_update_time=str_to_date(#{query.lastUpdateTime}, '%Y-%m-%d') ]]>
+		</if>
+		<if test="query.folderType != null">
+			and  f.folder_type = #{query.folderType}
+		</if>
+		<if test="query.fileCategory != null">
+			and  f.file_category = #{query.fileCategory}
+		</if>
+		<if test="query.fileType != null">
+			and  f.file_type = #{query.fileType}
+		</if>
+		<if test="query.status != null">
+			and  f.status = #{query.status}
+		</if>
+		<if test="query.delFlag != null">
+			and  f.del_flag = #{query.delFlag}
+		</if>
+		<if test="query.recoveryTime != null and query.recoveryTime!=''">
+			<![CDATA[ and  f.recovery_time=str_to_date(#{query.recoveryTime}, '%Y-%m-%d') ]]>
+		</if>
 	</sql>
 	<!-- 通用条件列-->
 	<sql id="base_condition">
-	 <where>
-		 <include refid="base_condition_filed" />
-	 </where>
+		<where>
+			<include refid="base_condition_filed" />
+		</where>
 	</sql>
 
 	<!-- 通用查询条件列-->
 	<sql id="query_condition">
-	 <where>
+		<where>
 			<include refid="base_condition_filed" />
+			<if test="query.fileIdFuzzy!= null  and query.fileIdFuzzy!=''">
+				and  f.file_id like concat('%', #{query.fileIdFuzzy}, '%')
+			</if>
 			<if test="query.fileMd5Fuzzy!= null  and query.fileMd5Fuzzy!=''">
-				 and  f.file_md5 like concat('%', #{query.fileMd5Fuzzy}, '%')
+				and  f.file_md5 like concat('%', #{query.fileMd5Fuzzy}, '%')
+			</if>
+			<if test="query.filePidFuzzy!= null  and query.filePidFuzzy!=''">
+				and  f.file_pid like concat('%', #{query.filePidFuzzy}, '%')
 			</if>
 			<if test="query.fileNameFuzzy!= null  and query.fileNameFuzzy!=''">
-				 and  f.file_name like concat('%', #{query.fileNameFuzzy}, '%')
+				and  f.file_name like concat('%', #{query.fileNameFuzzy}, '%')
 			</if>
 			<if test="query.fileCoverFuzzy!= null  and query.fileCoverFuzzy!=''">
-				 and  f.file_cover like concat('%', #{query.fileCoverFuzzy}, '%')
+				and  f.file_cover like concat('%', #{query.fileCoverFuzzy}, '%')
 			</if>
 			<if test="query.filePathFuzzy!= null  and query.filePathFuzzy!=''">
-				 and  f.file_path like concat('%', #{query.filePathFuzzy}, '%')
+				and  f.file_path like concat('%', #{query.filePathFuzzy}, '%')
 			</if>
 			<if test="query.createTimeStart!= null and query.createTimeStart!=''">
-				 <![CDATA[ and  f.create_time>=str_to_date(#{query.createTimeStart}, '%Y-%m-%d') ]]>
+				<![CDATA[ and  f.create_time>=str_to_date(#{query.createTimeStart}, '%Y-%m-%d') ]]>
 			</if>
 			<if test="query.createTimeEnd!= null and query.createTimeEnd!=''">
-				 <![CDATA[ and  f.create_time< date_sub(str_to_date(#{query.createTimeEnd},'%Y-%m-%d'),interval -1 day) ]]>
+				<![CDATA[ and  f.create_time< date_sub(str_to_date(#{query.createTimeEnd},'%Y-%m-%d'),interval -1 day) ]]>
 			</if>
 			<if test="query.lastUpdateTimeStart!= null and query.lastUpdateTimeStart!=''">
-				 <![CDATA[ and  f.last_update_time>=str_to_date(#{query.lastUpdateTimeStart}, '%Y-%m-%d') ]]>
+				<![CDATA[ and  f.last_update_time>=str_to_date(#{query.lastUpdateTimeStart}, '%Y-%m-%d') ]]>
 			</if>
 			<if test="query.lastUpdateTimeEnd!= null and query.lastUpdateTimeEnd!=''">
-				 <![CDATA[ and  f.last_update_time< date_sub(str_to_date(#{query.lastUpdateTimeEnd},'%Y-%m-%d'),interval -1 day) ]]>
+				<![CDATA[ and  f.last_update_time< date_sub(str_to_date(#{query.lastUpdateTimeEnd},'%Y-%m-%d'),interval -1 day) ]]>
 			</if>
 			<if test="query.recoveryTimeStart!= null and query.recoveryTimeStart!=''">
-				 <![CDATA[ and  f.recovery_time>=str_to_date(#{query.recoveryTimeStart}, '%Y-%m-%d') ]]>
+				<![CDATA[ and  f.recovery_time>=str_to_date(#{query.recoveryTimeStart}, '%Y-%m-%d') ]]>
 			</if>
 			<if test="query.recoveryTimeEnd!= null and query.recoveryTimeEnd!=''">
-				 <![CDATA[ and  f.recovery_time< date_sub(str_to_date(#{query.recoveryTimeEnd},'%Y-%m-%d'),interval -1 day) ]]>
+				<![CDATA[ and  f.recovery_time< date_sub(str_to_date(#{query.recoveryTimeEnd},'%Y-%m-%d'),interval -1 day) ]]>
 			</if>
-	 </where>
+		</where>
 	</sql>
 
 	<!-- 查询集合-->
 	<select id="selectList" resultMap="base_result_map" >
-		 SELECT <include refid="base_column_list" /> FROM file_info f <include refid="query_condition" />
-		 <if test="query.orderBy!=null">
-			 order by ${query.orderBy}
-		 </if>
-		 <if test="query.simplePage!=null">
-			 limit #{query.simplePage.start},#{query.simplePage.end}
-		 </if>
+		SELECT <include refid="base_column_list" /> FROM file_info f <include refid="query_condition" />
+		<if test="query.orderBy!=null">
+			order by ${query.orderBy}
+		</if>
+		<if test="query.simplePage!=null">
+			limit #{query.simplePage.start},#{query.simplePage.end}
+		</if>
 	</select>
 
 	<!-- 查询数量-->
 	<select id="selectCount" resultType="java.lang.Integer" >
-		 SELECT count(1) FROM file_info f <include refid="query_condition" />
+		SELECT count(1) FROM file_info f <include refid="query_condition" />
 	</select>
 
 	<!-- 插入 （匹配有值的字段）-->
 	<insert id="insert" parameterType="com.backend.entity.po.FileInfo">
-		<selectKey keyProperty="bean.fileId" resultType="Integer" order="AFTER">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
-		 INSERT INTO file_info
-		 <trim prefix="(" suffix=")" suffixOverrides="," >
+		INSERT INTO file_info
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="bean.fileId != null">
+				file_id,
+			</if>
 			<if test="bean.userId != null">
-				 user_id,
+				user_id,
 			</if>
 			<if test="bean.fileMd5 != null">
-				 file_md5,
+				file_md5,
 			</if>
 			<if test="bean.filePid != null">
-				 file_pid,
+				file_pid,
 			</if>
 			<if test="bean.fileSize != null">
-				 file_size,
+				file_size,
 			</if>
 			<if test="bean.fileName != null">
-				 file_name,
+				file_name,
 			</if>
 			<if test="bean.fileCover != null">
-				 file_cover,
+				file_cover,
 			</if>
 			<if test="bean.filePath != null">
-				 file_path,
+				file_path,
 			</if>
 			<if test="bean.createTime != null">
-				 create_time,
+				create_time,
 			</if>
 			<if test="bean.lastUpdateTime != null">
-				 last_update_time,
+				last_update_time,
 			</if>
 			<if test="bean.folderType != null">
-				 folder_type,
+				folder_type,
 			</if>
 			<if test="bean.fileCategory != null">
-				 file_category,
+				file_category,
 			</if>
 			<if test="bean.fileType != null">
-				 file_type,
+				file_type,
 			</if>
 			<if test="bean.status != null">
-				 status,
+				status,
 			</if>
 			<if test="bean.delFlag != null">
-				 del_flag,
+				del_flag,
 			</if>
 			<if test="bean.recoveryTime != null">
-				 recovery_time,
+				recovery_time,
 			</if>
-		 </trim>
-		 <trim prefix="values (" suffix=")" suffixOverrides="," >
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="bean.fileId!=null">
+				#{bean.fileId},
+			</if>
 			<if test="bean.userId!=null">
-				 #{bean.userId},
+				#{bean.userId},
 			</if>
 			<if test="bean.fileMd5!=null">
-				 #{bean.fileMd5},
+				#{bean.fileMd5},
 			</if>
 			<if test="bean.filePid!=null">
-				 #{bean.filePid},
+				#{bean.filePid},
 			</if>
 			<if test="bean.fileSize!=null">
-				 #{bean.fileSize},
+				#{bean.fileSize},
 			</if>
 			<if test="bean.fileName!=null">
-				 #{bean.fileName},
+				#{bean.fileName},
 			</if>
 			<if test="bean.fileCover!=null">
-				 #{bean.fileCover},
+				#{bean.fileCover},
 			</if>
 			<if test="bean.filePath!=null">
-				 #{bean.filePath},
+				#{bean.filePath},
 			</if>
 			<if test="bean.createTime!=null">
-				 #{bean.createTime},
+				#{bean.createTime},
 			</if>
 			<if test="bean.lastUpdateTime!=null">
-				 #{bean.lastUpdateTime},
+				#{bean.lastUpdateTime},
 			</if>
 			<if test="bean.folderType!=null">
-				 #{bean.folderType},
+				#{bean.folderType},
 			</if>
 			<if test="bean.fileCategory!=null">
-				 #{bean.fileCategory},
+				#{bean.fileCategory},
 			</if>
 			<if test="bean.fileType!=null">
-				 #{bean.fileType},
+				#{bean.fileType},
 			</if>
 			<if test="bean.status!=null">
-				 #{bean.status},
+				#{bean.status},
 			</if>
 			<if test="bean.delFlag!=null">
-				 #{bean.delFlag},
+				#{bean.delFlag},
 			</if>
 			<if test="bean.recoveryTime!=null">
-				 #{bean.recoveryTime},
+				#{bean.recoveryTime},
 			</if>
-		 </trim>
+		</trim>
 	</insert>
 
 	<!-- 插入或者更新 （匹配有值的字段）-->
 	<insert id="insertOrUpdate" parameterType="com.backend.entity.po.FileInfo">
-		 INSERT INTO file_info
-		 <trim prefix="(" suffix=")" suffixOverrides=",">
+		INSERT INTO file_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="bean.fileId != null">
-				 file_id,
+				file_id,
 			</if>
 			<if test="bean.userId != null">
-				 user_id,
+				user_id,
 			</if>
 			<if test="bean.fileMd5 != null">
-				 file_md5,
+				file_md5,
 			</if>
 			<if test="bean.filePid != null">
-				 file_pid,
+				file_pid,
 			</if>
 			<if test="bean.fileSize != null">
-				 file_size,
+				file_size,
 			</if>
 			<if test="bean.fileName != null">
-				 file_name,
+				file_name,
 			</if>
 			<if test="bean.fileCover != null">
-				 file_cover,
+				file_cover,
 			</if>
 			<if test="bean.filePath != null">
-				 file_path,
+				file_path,
 			</if>
 			<if test="bean.createTime != null">
-				 create_time,
+				create_time,
 			</if>
 			<if test="bean.lastUpdateTime != null">
-				 last_update_time,
+				last_update_time,
 			</if>
 			<if test="bean.folderType != null">
-				 folder_type,
+				folder_type,
 			</if>
 			<if test="bean.fileCategory != null">
-				 file_category,
+				file_category,
 			</if>
 			<if test="bean.fileType != null">
-				 file_type,
+				file_type,
 			</if>
 			<if test="bean.status != null">
-				 status,
+				status,
 			</if>
 			<if test="bean.delFlag != null">
-				 del_flag,
+				del_flag,
 			</if>
 			<if test="bean.recoveryTime != null">
-				 recovery_time,
+				recovery_time,
 			</if>
-		 </trim>
-		 <trim prefix="values (" suffix=")" suffixOverrides=",">
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="bean.fileId!=null">
-				 #{bean.fileId},
+				#{bean.fileId},
 			</if>
 			<if test="bean.userId!=null">
-				 #{bean.userId},
+				#{bean.userId},
 			</if>
 			<if test="bean.fileMd5!=null">
-				 #{bean.fileMd5},
+				#{bean.fileMd5},
 			</if>
 			<if test="bean.filePid!=null">
-				 #{bean.filePid},
+				#{bean.filePid},
 			</if>
 			<if test="bean.fileSize!=null">
-				 #{bean.fileSize},
+				#{bean.fileSize},
 			</if>
 			<if test="bean.fileName!=null">
-				 #{bean.fileName},
+				#{bean.fileName},
 			</if>
 			<if test="bean.fileCover!=null">
-				 #{bean.fileCover},
+				#{bean.fileCover},
 			</if>
 			<if test="bean.filePath!=null">
-				 #{bean.filePath},
+				#{bean.filePath},
 			</if>
 			<if test="bean.createTime!=null">
-				 #{bean.createTime},
+				#{bean.createTime},
 			</if>
 			<if test="bean.lastUpdateTime!=null">
-				 #{bean.lastUpdateTime},
+				#{bean.lastUpdateTime},
 			</if>
 			<if test="bean.folderType!=null">
-				 #{bean.folderType},
+				#{bean.folderType},
 			</if>
 			<if test="bean.fileCategory!=null">
-				 #{bean.fileCategory},
+				#{bean.fileCategory},
 			</if>
 			<if test="bean.fileType!=null">
-				 #{bean.fileType},
+				#{bean.fileType},
 			</if>
 			<if test="bean.status!=null">
-				 #{bean.status},
+				#{bean.status},
 			</if>
 			<if test="bean.delFlag!=null">
-				 #{bean.delFlag},
+				#{bean.delFlag},
 			</if>
 			<if test="bean.recoveryTime!=null">
-				 #{bean.recoveryTime},
+				#{bean.recoveryTime},
 			</if>
-		 </trim>
-		 on DUPLICATE key update 
-		 <trim prefix="" suffix="" suffixOverrides=",">
+		</trim>
+		on DUPLICATE key update
+		<trim prefix="" suffix="" suffixOverrides=",">
+			<if test="bean.fileId!=null">
+				file_id = VALUES(file_id),
+			</if>
 			<if test="bean.userId!=null">
-				 user_id = VALUES(user_id),
+				user_id = VALUES(user_id),
 			</if>
 			<if test="bean.fileMd5!=null">
-				 file_md5 = VALUES(file_md5),
+				file_md5 = VALUES(file_md5),
 			</if>
 			<if test="bean.filePid!=null">
-				 file_pid = VALUES(file_pid),
+				file_pid = VALUES(file_pid),
 			</if>
 			<if test="bean.fileSize!=null">
-				 file_size = VALUES(file_size),
+				file_size = VALUES(file_size),
 			</if>
 			<if test="bean.fileName!=null">
-				 file_name = VALUES(file_name),
+				file_name = VALUES(file_name),
 			</if>
 			<if test="bean.fileCover!=null">
-				 file_cover = VALUES(file_cover),
+				file_cover = VALUES(file_cover),
 			</if>
 			<if test="bean.filePath!=null">
-				 file_path = VALUES(file_path),
+				file_path = VALUES(file_path),
 			</if>
 			<if test="bean.createTime!=null">
-				 create_time = VALUES(create_time),
+				create_time = VALUES(create_time),
 			</if>
 			<if test="bean.lastUpdateTime!=null">
-				 last_update_time = VALUES(last_update_time),
+				last_update_time = VALUES(last_update_time),
 			</if>
 			<if test="bean.folderType!=null">
-				 folder_type = VALUES(folder_type),
+				folder_type = VALUES(folder_type),
 			</if>
 			<if test="bean.fileCategory!=null">
-				 file_category = VALUES(file_category),
+				file_category = VALUES(file_category),
 			</if>
 			<if test="bean.fileType!=null">
-				 file_type = VALUES(file_type),
+				file_type = VALUES(file_type),
 			</if>
 			<if test="bean.status!=null">
-				 status = VALUES(status),
+				status = VALUES(status),
 			</if>
 			<if test="bean.delFlag!=null">
-				 del_flag = VALUES(del_flag),
+				del_flag = VALUES(del_flag),
 			</if>
 			<if test="bean.recoveryTime!=null">
-				 recovery_time = VALUES(recovery_time),
+				recovery_time = VALUES(recovery_time),
 			</if>
-		 </trim>
+		</trim>
 	</insert>
 
 	<!-- 添加 （批量插入）-->
-	<insert id="insertBatch" parameterType="com.backend.entity.po.FileInfo" useGeneratedKeys="true" keyProperty="fileId">
-		 INSERT INTO file_info(
-			 user_id,
-			 file_md5,
-			 file_pid,
-			 file_size,
-			 file_name,
-			 file_cover,
-			 file_path,
-			 create_time,
-			 last_update_time,
-			 folder_type,
-			 file_category,
-			 file_type,
-			 status,
-			 del_flag,
-			 recovery_time
-		 )values
-		 <foreach collection="list" item="item" separator=",">
-			 (
-				 #{item.userId},
-				 #{item.fileMd5},
-				 #{item.filePid},
-				 #{item.fileSize},
-				 #{item.fileName},
-				 #{item.fileCover},
-				 #{item.filePath},
-				 #{item.createTime},
-				 #{item.lastUpdateTime},
-				 #{item.folderType},
-				 #{item.fileCategory},
-				 #{item.fileType},
-				 #{item.status},
-				 #{item.delFlag},
-				 #{item.recoveryTime}
-			 )
-		 </foreach>
+	<insert id="insertBatch" parameterType="com.backend.entity.po.FileInfo">
+		INSERT INTO file_info(
+		file_id,
+		user_id,
+		file_md5,
+		file_pid,
+		file_size,
+		file_name,
+		file_cover,
+		file_path,
+		create_time,
+		last_update_time,
+		folder_type,
+		file_category,
+		file_type,
+		status,
+		del_flag,
+		recovery_time
+		)values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.fileId},
+			#{item.userId},
+			#{item.fileMd5},
+			#{item.filePid},
+			#{item.fileSize},
+			#{item.fileName},
+			#{item.fileCover},
+			#{item.filePath},
+			#{item.createTime},
+			#{item.lastUpdateTime},
+			#{item.folderType},
+			#{item.fileCategory},
+			#{item.fileType},
+			#{item.status},
+			#{item.delFlag},
+			#{item.recoveryTime}
+			)
+		</foreach>
 	</insert>
 
 	<!-- 批量新增修改 （批量插入）-->
 	<insert id="insertOrUpdateBatch" parameterType="com.backend.entity.po.FileInfo">
-		 INSERT INTO file_info(
-			 user_id,
-			 file_md5,
-			 file_pid,
-			 file_size,
-			 file_name,
-			 file_cover,
-			 file_path,
-			 create_time,
-			 last_update_time,
-			 folder_type,
-			 file_category,
-			 file_type,
-			 status,
-			 del_flag,
-			 recovery_time
-		 )values
-		 <foreach collection="list" item="item" separator=",">
-			 (
-				 #{item.userId},
-				 #{item.fileMd5},
-				 #{item.filePid},
-				 #{item.fileSize},
-				 #{item.fileName},
-				 #{item.fileCover},
-				 #{item.filePath},
-				 #{item.createTime},
-				 #{item.lastUpdateTime},
-				 #{item.folderType},
-				 #{item.fileCategory},
-				 #{item.fileType},
-				 #{item.status},
-				 #{item.delFlag},
-				 #{item.recoveryTime}
-			 )
-		 </foreach>
-			on DUPLICATE key update 
-			user_id = VALUES(user_id),
-			file_md5 = VALUES(file_md5),
-			file_pid = VALUES(file_pid),
-			file_size = VALUES(file_size),
-			file_name = VALUES(file_name),
-			file_cover = VALUES(file_cover),
-			file_path = VALUES(file_path),
-			create_time = VALUES(create_time),
-			last_update_time = VALUES(last_update_time),
-			folder_type = VALUES(folder_type),
-			file_category = VALUES(file_category),
-			file_type = VALUES(file_type),
-			status = VALUES(status),
-			del_flag = VALUES(del_flag),
-			recovery_time = VALUES(recovery_time)
+		INSERT INTO file_info(
+		file_id,
+		user_id,
+		file_md5,
+		file_pid,
+		file_size,
+		file_name,
+		file_cover,
+		file_path,
+		create_time,
+		last_update_time,
+		folder_type,
+		file_category,
+		file_type,
+		status,
+		del_flag,
+		recovery_time
+		)values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.fileId},
+			#{item.userId},
+			#{item.fileMd5},
+			#{item.filePid},
+			#{item.fileSize},
+			#{item.fileName},
+			#{item.fileCover},
+			#{item.filePath},
+			#{item.createTime},
+			#{item.lastUpdateTime},
+			#{item.folderType},
+			#{item.fileCategory},
+			#{item.fileType},
+			#{item.status},
+			#{item.delFlag},
+			#{item.recoveryTime}
+			)
+		</foreach>
+		on DUPLICATE key update
+		file_id = VALUES(file_id),
+		user_id = VALUES(user_id),
+		file_md5 = VALUES(file_md5),
+		file_pid = VALUES(file_pid),
+		file_size = VALUES(file_size),
+		file_name = VALUES(file_name),
+		file_cover = VALUES(file_cover),
+		file_path = VALUES(file_path),
+		create_time = VALUES(create_time),
+		last_update_time = VALUES(last_update_time),
+		folder_type = VALUES(folder_type),
+		file_category = VALUES(file_category),
+		file_type = VALUES(file_type),
+		status = VALUES(status),
+		del_flag = VALUES(del_flag),
+		recovery_time = VALUES(recovery_time)
 	</insert>
 
 	<!--多条件修改-->
 	<update id="updateByParam" parameterType="com.backend.entity.query.FileInfoQuery">
-		 UPDATE file_info f
- 		 <set> 
+		UPDATE file_info f
+		<set>
+			<if test="bean.fileId != null">
+				file_id = #{bean.fileId},
+			</if>
 			<if test="bean.userId != null">
-				 user_id = #{bean.userId},
+				user_id = #{bean.userId},
 			</if>
 			<if test="bean.fileMd5 != null">
-				 file_md5 = #{bean.fileMd5},
+				file_md5 = #{bean.fileMd5},
 			</if>
 			<if test="bean.filePid != null">
-				 file_pid = #{bean.filePid},
+				file_pid = #{bean.filePid},
 			</if>
 			<if test="bean.fileSize != null">
-				 file_size = #{bean.fileSize},
+				file_size = #{bean.fileSize},
 			</if>
 			<if test="bean.fileName != null">
-				 file_name = #{bean.fileName},
+				file_name = #{bean.fileName},
 			</if>
 			<if test="bean.fileCover != null">
-				 file_cover = #{bean.fileCover},
+				file_cover = #{bean.fileCover},
 			</if>
 			<if test="bean.filePath != null">
-				 file_path = #{bean.filePath},
+				file_path = #{bean.filePath},
 			</if>
 			<if test="bean.createTime != null">
-				 create_time = #{bean.createTime},
+				create_time = #{bean.createTime},
 			</if>
 			<if test="bean.lastUpdateTime != null">
-				 last_update_time = #{bean.lastUpdateTime},
+				last_update_time = #{bean.lastUpdateTime},
 			</if>
 			<if test="bean.folderType != null">
-				 folder_type = #{bean.folderType},
+				folder_type = #{bean.folderType},
 			</if>
 			<if test="bean.fileCategory != null">
-				 file_category = #{bean.fileCategory},
+				file_category = #{bean.fileCategory},
 			</if>
 			<if test="bean.fileType != null">
-				 file_type = #{bean.fileType},
+				file_type = #{bean.fileType},
 			</if>
 			<if test="bean.status != null">
-				 status = #{bean.status},
+				status = #{bean.status},
 			</if>
 			<if test="bean.delFlag != null">
-				 del_flag = #{bean.delFlag},
+				del_flag = #{bean.delFlag},
 			</if>
 			<if test="bean.recoveryTime != null">
-				 recovery_time = #{bean.recoveryTime},
+				recovery_time = #{bean.recoveryTime},
 			</if>
- 		 </set>
- 		 <include refid="query_condition" />
+		</set>
+		<include refid="query_condition" />
 	</update>
 
 	<!--多条件删除-->
 	<delete id="deleteByParam">
-		 delete f from file_info f
- 		 <include refid="query_condition" />
+		delete f from file_info f
+		<include refid="query_condition" />
 	</delete>
 
 	<!-- 根据FileId修改-->
 	<update id="updateByFileId" parameterType="com.backend.entity.po.FileInfo">
-		 UPDATE file_info
- 		 <set> 
+		UPDATE file_info
+		<set>
 			<if test="bean.userId != null">
-				 user_id = #{bean.userId},
+				user_id = #{bean.userId},
 			</if>
 			<if test="bean.fileMd5 != null">
-				 file_md5 = #{bean.fileMd5},
+				file_md5 = #{bean.fileMd5},
 			</if>
 			<if test="bean.filePid != null">
-				 file_pid = #{bean.filePid},
+				file_pid = #{bean.filePid},
 			</if>
 			<if test="bean.fileSize != null">
-				 file_size = #{bean.fileSize},
+				file_size = #{bean.fileSize},
 			</if>
 			<if test="bean.fileName != null">
-				 file_name = #{bean.fileName},
+				file_name = #{bean.fileName},
 			</if>
 			<if test="bean.fileCover != null">
-				 file_cover = #{bean.fileCover},
+				file_cover = #{bean.fileCover},
 			</if>
 			<if test="bean.filePath != null">
-				 file_path = #{bean.filePath},
+				file_path = #{bean.filePath},
 			</if>
 			<if test="bean.createTime != null">
-				 create_time = #{bean.createTime},
+				create_time = #{bean.createTime},
 			</if>
 			<if test="bean.lastUpdateTime != null">
-				 last_update_time = #{bean.lastUpdateTime},
+				last_update_time = #{bean.lastUpdateTime},
 			</if>
 			<if test="bean.folderType != null">
-				 folder_type = #{bean.folderType},
+				folder_type = #{bean.folderType},
 			</if>
 			<if test="bean.fileCategory != null">
-				 file_category = #{bean.fileCategory},
+				file_category = #{bean.fileCategory},
 			</if>
 			<if test="bean.fileType != null">
-				 file_type = #{bean.fileType},
+				file_type = #{bean.fileType},
 			</if>
 			<if test="bean.status != null">
-				 status = #{bean.status},
+				status = #{bean.status},
 			</if>
 			<if test="bean.delFlag != null">
-				 del_flag = #{bean.delFlag},
+				del_flag = #{bean.delFlag},
 			</if>
 			<if test="bean.recoveryTime != null">
-				 recovery_time = #{bean.recoveryTime},
+				recovery_time = #{bean.recoveryTime},
 			</if>
- 		 </set>
- 		 where file_id=#{fileId}
+		</set>
+		where file_id=#{fileId}
 	</update>
 
 	<!-- 根据FileId删除-->
@@ -629,6 +649,12 @@
 	<!-- 根据PrimaryKey获取对象-->
 	<select id="selectByFileId" resultMap="base_result_map" >
 		select <include refid="base_column_list" /> from file_info f where file_id=#{fileId}
+	</select>
+
+	<select id="selectUseSpace" resultType="java.lang.Long">
+		select ifnull(sum(file_size), 0)
+		from file_info
+		where user_id=#{userId}
 	</select>
 
 </mapper>

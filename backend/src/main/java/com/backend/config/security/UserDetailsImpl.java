@@ -1,12 +1,16 @@
 package com.backend.config.security;
 
+import com.backend.entity.constant.Constants;
 import com.backend.entity.po.User;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static com.backend.entity.constant.Constants.USER_TYPE_ADMIN;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +21,13 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add((GrantedAuthority) () -> switch (user.getType()) {
+            case USER_TYPE_ADMIN -> "ADMIN"; // 管理员
+            default -> "USER"; // 普通用户
+        });
+
+        return list;
     }
 
     @Override

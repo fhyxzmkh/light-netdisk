@@ -12,19 +12,21 @@ public interface FileInfoMapper<T,P> extends BaseMapper<T,P> {
 	/**
 	 * 根据FileId更新
 	 */
-	 Integer updateByFileId(@Param("bean") T t,@Param("fileId") Integer fileId);
+	Integer updateByFileId(@Param("bean") T t,@Param("fileId") String fileId);
 
 
 	/**
 	 * 根据FileId删除
 	 */
-	 Integer deleteByFileId(@Param("fileId") Integer fileId);
+	Integer deleteByFileId(@Param("fileId") String fileId);
 
 
 	/**
 	 * 根据FileId获取对象
 	 */
-	 T selectByFileId(@Param("fileId") Integer fileId);
+	T selectByFileId(@Param("fileId") String fileId);
 
+
+	Long selectUseSpace(@Param("userId") Integer userId);
 
 }

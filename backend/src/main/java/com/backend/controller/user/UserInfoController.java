@@ -2,7 +2,7 @@ package com.backend.controller.user;
 
 import java.util.List;
 
-import com.backend.controller.other.ABaseController;
+import com.backend.controller.common.ABaseController;
 import com.backend.entity.po.User;
 import com.backend.entity.query.UserInfoQuery;
 import com.backend.entity.vo.ResponseVO;

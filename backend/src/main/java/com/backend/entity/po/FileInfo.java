@@ -1,10 +1,9 @@
 package com.backend.entity.po;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
-import com.backend.entity.enums.DateTimePatternEnum;
-import com.backend.utils.DateUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +25,7 @@ public class FileInfo implements Serializable {
 	/**
 	 * 文件ID
 	 */
-	private Integer fileId;
+	private String fileId;
 
 	/**
 	 * 用户ID
@@ -41,7 +40,7 @@ public class FileInfo implements Serializable {
 	/**
 	 * 父级ID
 	 */
-	private Integer filePid;
+	private String filePid;
 
 	/**
 	 * 文件大小

@@ -55,18 +55,18 @@ public interface FileInfoService {
 	/**
 	 * 根据FileId查询对象
 	 */
-	FileInfo getFileInfoByFileId(Integer fileId);
+	FileInfo getFileInfoByFileId(String fileId);
 
 
 	/**
 	 * 根据FileId修改
 	 */
-	Integer updateFileInfoByFileId(FileInfo bean,Integer fileId);
+	Integer updateFileInfoByFileId(FileInfo bean,String fileId);
 
 
 	/**
 	 * 根据FileId删除
 	 */
-	Integer deleteFileInfoByFileId(Integer fileId);
+	Integer deleteFileInfoByFileId(String fileId);
 
 }

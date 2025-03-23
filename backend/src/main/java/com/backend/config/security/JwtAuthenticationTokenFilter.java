@@ -52,10 +52,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         UserDetailsImpl loginUser = new UserDetailsImpl(user);
 
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginUser, null, null);
- 
+                new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
+
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
- 
+
         filterChain.doFilter(request, response);
     }
 }

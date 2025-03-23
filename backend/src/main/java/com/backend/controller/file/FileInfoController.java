@@ -1,8 +1,8 @@
-package com.backend.controller.file;
+package com.backend.controller;
 
 import java.util.List;
 
-import com.backend.controller.other.ABaseController;
+import com.backend.controller.common.ABaseController;
 import com.backend.entity.query.FileInfoQuery;
 import com.backend.entity.po.FileInfo;
 import com.backend.entity.vo.ResponseVO;
@@ -11,8 +11,6 @@ import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-
 
 /**
  *  Controller
@@ -62,7 +60,7 @@ public class FileInfoController extends ABaseController {
 	 * 根据FileId查询对象
 	 */
 	@RequestMapping("/getFileInfoByFileId")
-	public ResponseVO getFileInfoByFileId(Integer fileId) {
+	public ResponseVO getFileInfoByFileId(String fileId) {
 		return getSuccessResponseVO(fileInfoService.getFileInfoByFileId(fileId));
 	}
 
@@ -70,7 +68,7 @@ public class FileInfoController extends ABaseController {
 	 * 根据FileId修改对象
 	 */
 	@RequestMapping("/updateFileInfoByFileId")
-	public ResponseVO updateFileInfoByFileId(FileInfo bean,Integer fileId) {
+	public ResponseVO updateFileInfoByFileId(FileInfo bean,String fileId) {
 		fileInfoService.updateFileInfoByFileId(bean,fileId);
 		return getSuccessResponseVO(null);
 	}
@@ -79,7 +77,7 @@ public class FileInfoController extends ABaseController {
 	 * 根据FileId删除
 	 */
 	@RequestMapping("/deleteFileInfoByFileId")
-	public ResponseVO deleteFileInfoByFileId(Integer fileId) {
+	public ResponseVO deleteFileInfoByFileId(String fileId) {
 		fileInfoService.deleteFileInfoByFileId(fileId);
 		return getSuccessResponseVO(null);
 	}

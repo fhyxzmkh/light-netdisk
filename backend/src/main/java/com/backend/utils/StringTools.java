@@ -1,4 +1,5 @@
 package com.backend.utils;
+import cn.hutool.core.util.StrUtil;
 import com.backend.exception.BusinessException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -49,5 +50,33 @@ public class StringTools {
             return true;
         }
         return false;
+    }
+
+    public static String renameFileWithUUID(String fileName) {
+        // 检查文件名是否为空
+        if (fileName == null || fileName.isEmpty()) {
+            throw new IllegalArgumentException("文件名不能为空");
+        }
+
+        // 查找最后一个点（.）的位置
+        int dotIndex = fileName.lastIndexOf('.');
+
+        String nameWithoutExtension;
+        String extension = ""; // 默认扩展名为空
+
+        // 如果有扩展名
+        if (dotIndex != -1) {
+            nameWithoutExtension = fileName.substring(0, dotIndex);
+            extension = fileName.substring(dotIndex); // 包括点（.）
+        } else {
+            // 如果没有扩展名，整个文件名作为名称部分
+            nameWithoutExtension = fileName;
+        }
+
+        // 生成UUID
+        String uuid = StrUtil.uuid().replace("-", "");
+
+        // 构建新的文件名
+        return nameWithoutExtension + "_" + uuid + extension;
     }
 }

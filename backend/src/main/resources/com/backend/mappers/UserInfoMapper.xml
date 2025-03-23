@@ -467,7 +467,7 @@
  		 where username=#{username}
 	</update>
 
-	<!-- 根据Username删除-->
+    <!-- 根据Username删除-->
 	<delete id="deleteByUsername">
 		delete from user_info where username=#{username}
 	</delete>
@@ -476,5 +476,28 @@
 	<select id="selectByUsername" resultMap="base_result_map" >
 		select <include refid="base_column_list" /> from user_info u where username=#{username}
 	</select>
+
+	<update id="updateUserSpace">
+		update user_info
+		<set>
+			<if test="useSpace!=null">
+				use_space = use_space + #{useSpace},
+			</if>
+			<if test="totalSpace!=null">
+				total_space = total_space + #{totalSpace},
+			</if>
+		</set>
+		where user_id = #{userId}
+		<if test="useSpace!=null">
+			and <![CDATA[
+				(use_space + #{useSpace}) <= total_space
+			]]>
+		</if>
+		<if test="totalSpace!=null">
+			and <![CDATA[
+				(total_space + #{totalSpace}) >= use_space
+			]]>
+		</if>
+	</update>
 
 </mapper>

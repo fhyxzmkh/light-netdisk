@@ -3,11 +3,14 @@ package com.backend.utils;
 import cn.hutool.core.bean.BeanUtil;
 import com.backend.config.security.UserDetailsImpl;
 import com.backend.entity.dto.UserInfoDto;
+import com.backend.entity.dto.UserSpaceDto;
 import com.backend.entity.po.User;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserUtil {
 
     public static User getLoggedUser() {

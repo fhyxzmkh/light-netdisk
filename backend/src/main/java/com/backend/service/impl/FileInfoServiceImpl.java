@@ -4,7 +4,6 @@ import java.util.List;
 
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
-
 import com.backend.entity.enums.PageSize;
 import com.backend.entity.query.FileInfoQuery;
 import com.backend.entity.po.FileInfo;
@@ -107,7 +106,7 @@ public class FileInfoServiceImpl implements FileInfoService {
 	 * 根据FileId获取对象
 	 */
 	@Override
-	public FileInfo getFileInfoByFileId(Integer fileId) {
+	public FileInfo getFileInfoByFileId(String fileId) {
 		return this.fileInfoMapper.selectByFileId(fileId);
 	}
 
@@ -115,7 +114,7 @@ public class FileInfoServiceImpl implements FileInfoService {
 	 * 根据FileId修改
 	 */
 	@Override
-	public Integer updateFileInfoByFileId(FileInfo bean, Integer fileId) {
+	public Integer updateFileInfoByFileId(FileInfo bean, String fileId) {
 		return this.fileInfoMapper.updateByFileId(bean, fileId);
 	}
 
@@ -123,7 +122,7 @@ public class FileInfoServiceImpl implements FileInfoService {
 	 * 根据FileId删除
 	 */
 	@Override
-	public Integer deleteFileInfoByFileId(Integer fileId) {
+	public Integer deleteFileInfoByFileId(String fileId) {
 		return this.fileInfoMapper.deleteByFileId(fileId);
 	}
 }

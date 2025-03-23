@@ -12,7 +12,9 @@ public class FileInfoQuery extends BaseParam {
 	/**
 	 * 文件ID
 	 */
-	private Integer fileId;
+	private String fileId;
+
+	private String fileIdFuzzy;
 
 	/**
 	 * 用户ID
@@ -29,7 +31,9 @@ public class FileInfoQuery extends BaseParam {
 	/**
 	 * 父级ID
 	 */
-	private Integer filePid;
+	private String filePid;
+
+	private String filePidFuzzy;
 
 	/**
 	 * 文件大小
@@ -110,12 +114,20 @@ public class FileInfoQuery extends BaseParam {
 	private String recoveryTimeEnd;
 
 
-	public void setFileId(Integer fileId){
+	public void setFileId(String fileId){
 		this.fileId = fileId;
 	}
 
-	public Integer getFileId(){
+	public String getFileId(){
 		return this.fileId;
+	}
+
+	public void setFileIdFuzzy(String fileIdFuzzy){
+		this.fileIdFuzzy = fileIdFuzzy;
+	}
+
+	public String getFileIdFuzzy(){
+		return this.fileIdFuzzy;
 	}
 
 	public void setUserId(Integer userId){
@@ -142,12 +154,20 @@ public class FileInfoQuery extends BaseParam {
 		return this.fileMd5Fuzzy;
 	}
 
-	public void setFilePid(Integer filePid){
+	public void setFilePid(String filePid){
 		this.filePid = filePid;
 	}
 
-	public Integer getFilePid(){
+	public String getFilePid(){
 		return this.filePid;
+	}
+
+	public void setFilePidFuzzy(String filePidFuzzy){
+		this.filePidFuzzy = filePidFuzzy;
+	}
+
+	public String getFilePidFuzzy(){
+		return this.filePidFuzzy;
 	}
 
 	public void setFileSize(Long fileSize){

@@ -1,4 +1,4 @@
-package com.backend.controller.other;
+package com.backend.controller.common;
 import com.backend.entity.enums.ResponseCodeEnum;
 import com.backend.entity.vo.ResponseVO;
 import com.backend.exception.BusinessException;

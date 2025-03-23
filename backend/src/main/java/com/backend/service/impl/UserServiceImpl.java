@@ -4,9 +4,15 @@ import com.alibaba.fastjson.JSON;
 import com.backend.config.security.JwtUtil;
 import com.backend.config.security.UserDetailsImpl;
 import com.backend.entity.dto.UserInfoDto;
+import com.backend.entity.dto.UserSpaceDto;
+import com.backend.entity.enums.UserStatusEnums;
+import com.backend.entity.po.FileInfo;
 import com.backend.entity.po.User;
+import com.backend.entity.query.FileInfoQuery;
+import com.backend.mappers.FileInfoMapper;
 import com.backend.mappers.UserMapper;
 import com.backend.service.UserService;
+import com.backend.utils.RedisComponent;
 import com.backend.utils.UserUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +39,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private RedisComponent redisComponent;
+
+    @Autowired
+    private FileInfoMapper<FileInfo, FileInfoQuery> fileInfoMapper;
+
 
     @Override
     public Map<String, String> login(String username, String password) {
@@ -44,15 +57,36 @@ public class UserServiceImpl implements UserService {
 
         User user = loginUser.getUser();
 
+        // 用户被禁用
+        if (UserStatusEnums.DISABLED.getStatus().equals(user.getStatus())) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "User is disabled");
+            return response;
+        }
+
+        // 更新用户最后登录时间
+        User updateInfo = new User();
+        updateInfo.setLastLoginTime(new Date());
+        userMapper.updateById(updateInfo);
+
         String jwt = JwtUtil.createJWT(user.getUserId().toString());
 
         Map<String, String> response = new java.util.HashMap<>();
         response.put("message", "success");
         response.put("token", jwt);
 
+        // 用户信息
         UserInfoDto userInfoDto = UserUtil.getUserInfoDto(user);
-
         response.put("userInfo", JSON.toJSONString(userInfoDto));
+
+        // 用户空间信息
+        UserSpaceDto userSpaceDto = new UserSpaceDto();
+        Long useSpace = fileInfoMapper.selectUseSpace(user.getUserId());
+        userSpaceDto.setUseSpace(useSpace);
+        userSpaceDto.setTotalSpace(user.getTotalSpace());
+
+        response.put("userSpaceInfo", JSON.toJSONString(userSpaceDto));
+        redisComponent.saveUserSpaceDto(user.getUserId(), userSpaceDto);
 
         return response;
     }
