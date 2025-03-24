@@ -1,9 +1,9 @@
 package com.backend.utils;
 
+import com.backend.config.JsonRedisTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
@@ -12,11 +12,11 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtil<V> {
 
     @Autowired
-    private RedisTemplate<String, V> redisTemplate;
+    JsonRedisTemplate redisTemplate;
 
     private static final Logger logger = LoggerFactory.getLogger(RedisUtil.class);
 
-    public V get(String key) {
+    public Object get(String key) {
         return key == null ? null : redisTemplate.opsForValue().get(key);
     }
 
